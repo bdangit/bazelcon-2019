@@ -17,3 +17,7 @@ build --repository_cache=~/.cache/bazel-repo
 fetch --repository_cache=~/.cache/bazel-repo
 query --repository_cache=~/.cache/bazel-repo
 build --disk_cache=~/.cache/bazel-disk
+
+## this is needed when on RHEL/CentOS
+build --crosstool_top=//toolchain/gcc8:toolchain
+# build --crosstool_top=//toolchain/habitat-gcc8:toolchain
