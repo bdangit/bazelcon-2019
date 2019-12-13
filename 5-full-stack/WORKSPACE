@@ -1,6 +1,6 @@
 workspace(
-    name = "full_stack_suite",
-    managed_directories = {"@npm": ["node_modules"]},
+    name="full_stack_suite",
+    managed_directories={"@npm": ["node_modules"]},
 )
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
@@ -8,12 +8,13 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # "New" Java support
 
 http_archive(
-    name = "rules_java",
-    sha256 = "220b87d8cfabd22d1c6d8e3cdb4249abd4c93dcc152e0667db061fb1b957ee68",
-    url = "https://github.com/bazelbuild/rules_java/releases/download/0.1.1/rules_java-0.1.1.tar.gz",
+    name="rules_java",
+    sha256="220b87d8cfabd22d1c6d8e3cdb4249abd4c93dcc152e0667db061fb1b957ee68",
+    url="https://github.com/bazelbuild/rules_java/releases/download/0.1.1/rules_java-0.1.1.tar.gz",
 )
 
-load("@rules_java//java:repositories.bzl", "rules_java_dependencies", "rules_java_toolchains")
+load("@rules_java//java:repositories.bzl",
+     "rules_java_dependencies", "rules_java_toolchains")
 
 rules_java_dependencies()
 
@@ -22,31 +23,31 @@ rules_java_toolchains()
 # Download JDKs
 
 http_archive(
-    name = "jdk8_linux",
-    build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "568e7578f1b20b1e62a8ed2c374bad4eb0e75d221323ccfa6ba8d7bc56cf33cf",
-    strip_prefix = "zulu8.38.0.13-ca-jdk8.0.212-linux_x64",
-    urls = [
+    name="jdk8_linux",
+    build_file="@local_jdk//:BUILD.bazel",
+    sha256="568e7578f1b20b1e62a8ed2c374bad4eb0e75d221323ccfa6ba8d7bc56cf33cf",
+    strip_prefix="zulu8.38.0.13-ca-jdk8.0.212-linux_x64",
+    urls=[
         "https://cdn.azul.com/zulu/bin/zulu8.38.0.13-ca-jdk8.0.212-linux_x64.tar.gz",
     ],
 )
 
 http_archive(
-    name = "jdk8_macos",
-    build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "64538f3eed34a298cc48168e89326fd323a55d801a3e6b2c3cc948effe124250",
-    strip_prefix = "zulu8.38.0.13-ca-jdk8.0.212-macosx_x64",
-    urls = [
+    name="jdk8_macos",
+    build_file="@local_jdk//:BUILD.bazel",
+    sha256="64538f3eed34a298cc48168e89326fd323a55d801a3e6b2c3cc948effe124250",
+    strip_prefix="zulu8.38.0.13-ca-jdk8.0.212-macosx_x64",
+    urls=[
         "https://cdn.azul.com/zulu/bin/zulu8.38.0.13-ca-jdk8.0.212-macosx_x64.tar.gz",
     ],
 )
 
 http_archive(
-    name = "jdk8_windows",
-    build_file = "@local_jdk//:BUILD.bazel",
-    sha256 = "f5367fc29485252e91d3d1d28b069277b7133dfa2e104fc181af4373267d3a82",
-    strip_prefix = "zulu8.38.0.13-ca-jdk8.0.212-win_x64",
-    urls = [
+    name="jdk8_windows",
+    build_file="@local_jdk//:BUILD.bazel",
+    sha256="f5367fc29485252e91d3d1d28b069277b7133dfa2e104fc181af4373267d3a82",
+    strip_prefix="zulu8.38.0.13-ca-jdk8.0.212-win_x64",
+    urls=[
         "https://cdn.azul.com/zulu/bin/zulu8.38.0.13-ca-jdk8.0.212-win_x64.zip",
     ],
 )
@@ -59,20 +60,20 @@ RULES_JVM_EXTERNAL_TAG = "3.0"
 RULES_JVM_EXTERNAL_SHA = "62133c125bf4109dfd9d2af64830208356ce4ef8b165a6ef15bbff7460b35c3a"
 
 http_archive(
-    name = "rules_jvm_external",
-    sha256 = RULES_JVM_EXTERNAL_SHA,
-    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
-    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+    name="rules_jvm_external",
+    sha256=RULES_JVM_EXTERNAL_SHA,
+    strip_prefix="rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    url="https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
 )
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
-    artifacts = [
+    artifacts=[
         "com.sparkjava:spark-core:2.8.0",
     ],
-    maven_install_json = "//:maven_install.json",
-    repositories = [
+    maven_install_json="//:maven_install.json",
+    repositories=[
         "https://jcenter.bintray.com/",
         "https://repo1.maven.org/maven2",
     ],
@@ -88,23 +89,24 @@ pinned_maven_install()
 # Javascript / Typescript tooling
 
 http_archive(
-    name = "build_bazel_rules_nodejs",
-    sha256 = "a54b2511d6dae42c1f7cdaeb08144ee2808193a088004fc3b464a04583d5aa2e",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/0.42.3/rules_nodejs-0.42.3.tar.gz"],
+    name="build_bazel_rules_nodejs",
+    sha256="a54b2511d6dae42c1f7cdaeb08144ee2808193a088004fc3b464a04583d5aa2e",
+    urls=["https://github.com/bazelbuild/rules_nodejs/releases/download/0.42.3/rules_nodejs-0.42.3.tar.gz"],
 )
 
-load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
+load("@build_bazel_rules_nodejs//:index.bzl",
+     "node_repositories", "yarn_install")
 
 node_repositories(
     # name = "nodejs",  # Most repository rules require a name, a few don't.
-    node_version = "12.13.0",
+    node_version="12.13.0",
 )
 
 yarn_install(
-    name = "npm",
-    package_json = "//:package.json",
-    symlink_node_modules = True,  # Worthy of discussion!
-    yarn_lock = "//:yarn.lock",
+    name="npm",
+    package_json="//:package.json",
+    symlink_node_modules=True,  # Worthy of discussion!
+    yarn_lock="//:yarn.lock",
 )
 
 load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
@@ -122,26 +124,27 @@ load("@io_bazel_rules_webtesting//web:repositories.bzl", "web_test_repositories"
 
 web_test_repositories()
 
-load("@io_bazel_rules_webtesting//web/versioned:browsers-0.3.2.bzl", "browser_repositories")
+load("@io_bazel_rules_webtesting//web/versioned:browsers-0.3.2.bzl",
+     "browser_repositories")
 
 browser_repositories(
-    chromium = True,
-    firefox = True,
+    chromium=True,
+    firefox=True,
 )
 
 # Needed the POM file generator:
 
 http_archive(
-    name = "bazel_common",
-    sha256 = "d8c9586b24ce4a5513d972668f94b62eb7d705b92405d4bc102131f294751f1d",
-    strip_prefix = "bazel-common-413b433b91f26dbe39cdbc20f742ad6555dd1e27",
-    url = "https://github.com/google/bazel-common/archive/413b433b91f26dbe39cdbc20f742ad6555dd1e27.zip",
+    name="bazel_common",
+    sha256="d8c9586b24ce4a5513d972668f94b62eb7d705b92405d4bc102131f294751f1d",
+    strip_prefix="bazel-common-413b433b91f26dbe39cdbc20f742ad6555dd1e27",
+    url="https://github.com/google/bazel-common/archive/413b433b91f26dbe39cdbc20f742ad6555dd1e27.zip",
 )
 
 http_archive(
-    name = "bazel_skylib",
-    sha256 = "97e70364e9249702246c0e9444bccdc4b847bed1eb03c5a3ece4f83dfe6abc44",
-    url = "https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.2/bazel-skylib-1.0.2.tar.gz",
+    name="bazel_skylib",
+    sha256="97e70364e9249702246c0e9444bccdc4b847bed1eb03c5a3ece4f83dfe6abc44",
+    url="https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.2/bazel-skylib-1.0.2.tar.gz",
 )
 
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
